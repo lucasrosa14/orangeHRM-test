@@ -17,10 +17,6 @@ export class LoginPage {
     await this.page.click('button[type="submit"]');
   }
 
-  async isDashboardVisible(): Promise<boolean> {
-    return this.page.isVisible('h6:has-text("Dashboard")');
-  }
-
   async isInvalidCredentials(): Promise<boolean> {
     return this.page.isVisible("//p[text()='Invalid credentials']");
   }
