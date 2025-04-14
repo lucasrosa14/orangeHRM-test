@@ -8,7 +8,6 @@
     "test:debug": "playwright test --debug",
     "allure:generate": "allure generate ./allure-results --clean -o ./allure-report",
     "allure:open": "npm run allure:generate && allure open ./allure-report"
-
   },
   "keywords": [],
   "author": "",
