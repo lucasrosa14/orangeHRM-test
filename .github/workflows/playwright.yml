@@ -38,6 +38,9 @@ jobs:
       - name: 📦 Instalar dependências
         run: npm ci
 
+      - name: 🧪 Instalar navegadores do Playwright
+        run: npx playwright install  # Instala os navegadores necessários
+
       - name: 🧪 Rodar testes
         run: npx playwright test
 
