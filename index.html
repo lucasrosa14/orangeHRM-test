@@ -4,38 +4,25 @@
   <meta charset='UTF-8'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
   <title>Histórico de Relatórios Allure</title>
-  <script src='https://cdn.jsdelivr.net/npm/chart.js'></script>
   <style>
-    body { font-family: 'Segoe UI', sans-serif; background-color: #f4f4f9; color: #333; padding: 2rem; }
-    h1 { color: #2c3e50; text-align: center; }
+    body { font-family: 'Segoe UI', sans-serif; background-color: #f4f4f9; color: #333; padding: 2rem; text-align: center; }
+    h1 { color: #2c3e50; }
     input[type='text'] { width: 100%; max-width: 300px; padding: 0.5rem; margin: 1rem auto; display: block; border: 1px solid #ccc; border-radius: 5px; }
     ul { list-style: none; padding: 0; max-width: 600px; margin: auto; }
-    li { margin: 0.5rem 0; cursor: pointer; }
-    a { text-decoration: none; color: #3498db; font-size: 1.1rem; }
+    li { margin: 1rem 0; cursor: pointer; }
+    a { text-decoration: none; color: #3498db; font-size: 1.2rem; }
     a:hover { text-decoration: underline; }
     .highlight { font-weight: bold; color: #e74c3c; }
-    .footer { margin-top: 2rem; font-size: 0.9rem; text-align: center; color: #777; }
-    .chart-container { width: 80%; margin: 20px auto; height: 300px; }
-    .collapsible { background-color: #f1f1f1; padding: 10px; cursor: pointer; border-radius: 5px; }
-    .content { padding-left: 20px; display: none; }
-    .active .content { display: block; }
+    .footer { margin-top: 2rem; font-size: 0.9rem; color: #777; }
   </style>
 </head>
 <body>
   <h1>📊 Histórico de Relatórios Allure</h1>
   <input type='text' id='search' placeholder='Filtrar por data ou hora... (ex: 2025-04-16_14)' />
-  <div class='chart-container'>
-    <canvas id='statusChart'></canvas>
   <ul id='report-list'>
-    <li class='collapsible active'><a href='./2025-04-16_19-20-46/index.html' class='highlight'>🆕 2025-04-16_19-20-46 – ✅ 43 | ❌ 0 | ⚠️ 0 | ⏸️ 6</a>
-      <div class='content'>
-        <ul>
-          <li>Status: ✅ 43 | ❌ 0 | ⚠️ 0 | ⏸️ 6</li>
-        </ul>
-      </div>
-    </li>
+    <li><a href='./2025-04-16_19-26-56/index.html' class='highlight'>🆕 2025-04-16_19-26-56 – ✅ 43 | ❌ 0 | ⚠️ 0 | ⏸️ 6</a></li>
   </ul>
-  <div class='footer'>Última atualização: Wed Apr 16 19:20:50 UTC 2025</div>
+  <div class='footer'>Última atualização: Wed Apr 16 19:27:06 UTC 2025</div>
   <script>
     const searchInput = document.getElementById('search');
     const reportList = document.getElementById('report-list');
@@ -46,25 +33,6 @@
         const text = item.textContent.toLowerCase();
         item.style.display = text.includes(value) ? '' : 'none';
       });
-    });
-    const coll = document.getElementsByClassName('collapsible');
-    Array.from(coll).forEach((item) => {
-      item.addEventListener('click', function() {
-        this.classList.toggle('active');
-        const content = this.querySelector('.content');
-        content.style.display = content.style.display === 'block' ? 'none' : 'block';
-      });
-    });
-    const ctx = document.getElementById('statusChart').getContext('2d');
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        datasets: [{
-      options: {
-        responsive: true,
-        plugins: {
-        },
-      }
     });
   </script>
 </body></html>
