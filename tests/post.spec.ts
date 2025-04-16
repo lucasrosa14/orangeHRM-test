@@ -1,10 +1,10 @@
 import { test } from "@playwright/test";
-import { loginWithValidCredentials } from "../utils/utils";
+import { isMobileProject, loginWithValidCredentials } from "../utils/utils";
 import { PostPage } from "../pages/PostPage";
 
 test.describe('Buzz tests', () => {
     test('Post a message', async ({ page }) => {
-
+        test.skip(isMobileProject(), 'Ignorado em mobile');
         await loginWithValidCredentials(page);
         const postPage = new PostPage(page);
         await postPage.goTo();
@@ -13,7 +13,7 @@ test.describe('Buzz tests', () => {
     })
 
     test('Verify posted message', async ({ page }) => {
-
+        test.skip(isMobileProject(), 'Ignorado em mobile');
         await loginWithValidCredentials(page);   
         const postPage = new PostPage(page);
         await postPage.goTo();
@@ -22,7 +22,7 @@ test.describe('Buzz tests', () => {
     })
 
     test('Like a message', async ({ page }) => {
-
+        test.skip(isMobileProject(), 'Ignorado em mobile');
         await loginWithValidCredentials(page);
         const postPage = new PostPage(page);
         await postPage.goTo();
