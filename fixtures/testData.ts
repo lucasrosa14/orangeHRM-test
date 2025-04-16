@@ -13,8 +13,4 @@ export const validCredentials = {
     password: '',
   };
 
-  export const userRegister = {
-    username: 'LukeRosa',
-    password: 'Luke123',
-  };
   
