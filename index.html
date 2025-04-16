@@ -5,19 +5,34 @@
   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
   <title>Histórico de Relatórios Allure</title>
   <style>
-    body { font-family: 'Segoe UI', sans-serif; background-color: #f4f4f9; color: #333; padding: 2rem; text-align: center; }
-    h1 { color: #2c3e50; }
-    ul { list-style: none; padding: 0; }
-    li { margin: 1rem 0; }
-    a { text-decoration: none; color: #3498db; font-size: 1.2rem; }
+    body { font-family: 'Segoe UI', sans-serif; background-color: #f4f4f9; color: #333; padding: 2rem; }
+    h1 { color: #2c3e50; text-align: center; }
+    input[type='text'] { width: 100%; max-width: 300px; padding: 0.5rem; margin: 1rem auto; display: block; border: 1px solid #ccc; border-radius: 5px; }
+    ul { list-style: none; padding: 0; max-width: 600px; margin: auto; }
+    li { margin: 0.5rem 0; }
+    a { text-decoration: none; color: #3498db; font-size: 1.1rem; }
     a:hover { text-decoration: underline; }
-    .footer { margin-top: 2rem; font-size: 0.9rem; color: #777; }
+    .highlight { font-weight: bold; color: #e74c3c; }
+    .footer { margin-top: 2rem; font-size: 0.9rem; text-align: center; color: #777; }
   </style>
 </head>
 <body>
   <h1>📊 Histórico de Relatórios Allure</h1>
-  <ul>
-    <li><a href='2025-04-16/index.html'>🗓️ 2025-04-16</a></li>
+  <input type='text' id='search' placeholder='Filtrar por data... (ex: 2025-04)' />
+  <ul id='report-list'>
+    <li><a href='2025-04-16/index.html' class='highlight'>🆕 2025-04-16 (mais recente)</a></li>
   </ul>
-  <div class='footer'>Última atualização: Wed Apr 16 18:02:43 UTC 2025</div>
+  <div class='footer'>Última atualização: Wed Apr 16 18:11:30 UTC 2025</div>
+  <script>
+    const searchInput = document.getElementById('search');
+    const reportList = document.getElementById('report-list');
+    searchInput.addEventListener('input', () => {
+      const value = searchInput.value.toLowerCase();
+      const items = reportList.getElementsByTagName('li');
+      Array.from(items).forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.style.display = text.includes(value) ? '' : 'none';
+      });
+    });
+  </script>
 </body></html>
