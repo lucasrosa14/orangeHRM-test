@@ -102,6 +102,7 @@ jobs:
           echo "    .chart-container { width: 80%; margin: 20px auto; }" >> $INDEX_FILE
           echo "    .collapsible { background-color: #f1f1f1; padding: 10px; cursor: pointer; border-radius: 5px; }" >> $INDEX_FILE
           echo "    .content { padding-left: 20px; display: none; }" >> $INDEX_FILE
+          echo "    .active .content { display: block; }" >> $INDEX_FILE
           echo "  </style>" >> $INDEX_FILE
           echo "</head>" >> $INDEX_FILE
           echo "<body>" >> $INDEX_FILE
@@ -121,16 +122,16 @@ jobs:
               BROKEN=$(jq '.statistic.broken' "$SUMMARY_FILE")
               SKIPPED=$(jq '.statistic.skipped' "$SUMMARY_FILE")
               PREVIEW="✅ $PASSED | ❌ $FAILED | ⚠️ $BROKEN | ⏸️ $SKIPPED"
-              
+
               # Prepare chart data
               STATUS_DATA="$STATUS_DATA { label: '$dir', data: [$PASSED, $FAILED, $BROKEN, $SKIPPED], backgroundColor: ['#2ecc71', '#e74c3c', '#f39c12', '#7f8c8d'] },"
             else
               PREVIEW="⚠️ Sem dados"
             fi
                   if [ "$dir" = "$LATEST_DIR" ]; then
-              echo "    <li class='collapsible'><a href='#' class='highlight'>🆕 $dir – $PREVIEW</a>" >> $INDEX_FILE
+              echo "    <li class='collapsible active'><a href='./$dir/index.html' class='highlight'>🆕 $dir – $PREVIEW</a>" >> $INDEX_FILE
             else
-              echo "    <li class='collapsible'><a href='#'>📅 $dir – $PREVIEW</a>" >> $INDEX_FILE
+              echo "    <li class='collapsible'><a href='./$dir/index.html'>📅 $dir – $PREVIEW</a>" >> $INDEX_FILE
             fi
             echo "      <div class='content'>" >> $INDEX_FILE
             echo "        <ul>" >> $INDEX_FILE
@@ -160,7 +161,7 @@ jobs:
           echo "        content.style.display = content.style.display === 'block' ? 'none' : 'block';" >> $INDEX_FILE
           echo "      });" >> $INDEX_FILE
           echo "    });" >> $INDEX_FILE
-                echo "    const ctx = document.getElementById('statusChart').getContext('2d');" >> $INDEX_FILE
+                 echo "    const ctx = document.getElementById('statusChart').getContext('2d');" >> $INDEX_FILE
           echo "    new Chart(ctx, {" >> $INDEX_FILE
           echo "      type: 'bar'," >> $INDEX_FILE
           echo "      data: {" >> $INDEX_FILE
