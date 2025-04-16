@@ -18,6 +18,7 @@
     .chart-container { width: 80%; margin: 20px auto; }
     .collapsible { background-color: #f1f1f1; padding: 10px; cursor: pointer; border-radius: 5px; }
     .content { padding-left: 20px; display: none; }
+    .active .content { display: block; }
   </style>
 </head>
 <body>
@@ -26,7 +27,7 @@
   <div class='chart-container'>
     <canvas id='statusChart'></canvas>
   <ul id='report-list'>
-    <li class='collapsible'><a href='#' class='highlight'>🆕 2025-04-16_19-01-54 – ✅ 43 | ❌ 0 | ⚠️ 0 | ⏸️ 6</a>
+    <li class='collapsible active'><a href='./2025-04-16_19-12-12/index.html' class='highlight'>🆕 2025-04-16_19-12-12 – ✅ 43 | ❌ 0 | ⚠️ 0 | ⏸️ 6</a>
       <div class='content'>
         <ul>
           <li>Status: ✅ 43 | ❌ 0 | ⚠️ 0 | ⏸️ 6</li>
@@ -34,7 +35,7 @@
       </div>
     </li>
   </ul>
-  <div class='footer'>Última atualização: Wed Apr 16 19:02:05 UTC 2025</div>
+  <div class='footer'>Última atualização: Wed Apr 16 19:12:20 UTC 2025</div>
   <script>
     const searchInput = document.getElementById('search');
     const reportList = document.getElementById('report-list');
