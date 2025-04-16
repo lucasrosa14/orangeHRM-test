@@ -12,4 +12,9 @@ export const validCredentials = {
     username: '',
     password: '',
   };
+
+  export const userRegister = {
+    username: 'LukeRosa',
+    password: 'Luke123',
+  };
   

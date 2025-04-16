@@ -20,5 +20,8 @@
     "allure-commandline": "^2.33.0",
     "allure-playwright": "^3.2.1",
     "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^9.7.0"
   }
 }

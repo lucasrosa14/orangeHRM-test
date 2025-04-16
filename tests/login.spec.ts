@@ -18,4 +18,5 @@ test.describe('Login tests', () => {
       await loginPage.login(emptyCredentials.username, emptyCredentials.password);
       await loginPage.isRequired();
     });
+
   });
