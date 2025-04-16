@@ -39,7 +39,7 @@ jobs:
         run: npm ci
 
       - name: 🧪 Instalar navegadores do Playwright
-        run: npx playwright install  # Instala os navegadores necessários
+        run: npx playwright install
 
       - name: 🧪 Rodar testes
         run: npx playwright test
@@ -72,76 +72,23 @@ jobs:
           name: allure-results
           path: ./allure-results
 
-      # Aqui gera o index.html customizado primeiro
-      - name: 🧾 Gerar index.html com lista de relatórios (estilizado com melhorias)
+      - name: 📊 Gerar relatório Allure
+        run: npx allure generate ./allure-results --clean -o ./allure-report
+
+      - name: 🧾 Gerar index.html com lista de relatórios
         run: |
           REPORT_DIR=./allure-report
           INDEX_FILE=$REPORT_DIR/index.html
 
           echo "<!DOCTYPE html>" > $INDEX_FILE
           echo "<html lang='pt-BR'>" >> $INDEX_FILE
-          echo "<head>" >> $INDEX_FILE
-          echo "  <meta charset='UTF-8'>" >> $INDEX_FILE
-          echo "  <meta name='viewport' content='width=device-width, initial-scale=1.0'>" >> $INDEX_FILE
-          echo "  <title>Relatórios Allure</title>" >> $INDEX_FILE
-          echo "  <style>" >> $INDEX_FILE
-          echo "    body { font-family: Arial, sans-serif; background: #f9f9f9; color: #333; padding: 40px; }" >> $INDEX_FILE
-          echo "    h1 { color: #111; border-bottom: 2px solid #ccc; padding-bottom: 10px; }" >> $INDEX_FILE
-          echo "    ul { list-style: none; padding-left: 0; }" >> $INDEX_FILE
-          echo "    li { margin: 10px 0; }" >> $INDEX_FILE
-          echo "    a { text-decoration: none; color: #007acc; font-weight: bold; }" >> $INDEX_FILE
-          echo "    a:hover { text-decoration: underline; }" >> $INDEX_FILE
-          echo "    .container { max-width: 600px; margin: auto; background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }" >> $INDEX_FILE
-          echo "    .search-bar { margin-bottom: 20px; }" >> $INDEX_FILE
-          echo "    .search-bar input { padding: 10px; width: 100%; border: 1px solid #ccc; border-radius: 5px; font-size: 16px; }" >> $INDEX_FILE
-          echo "    .back-btn { margin-top: 20px; padding: 10px 20px; background: #007acc; color: #fff; border: none; border-radius: 5px; cursor: pointer; }" >> $INDEX_FILE
-          echo "    .back-btn:hover { background: #005f99; }" >> $INDEX_FILE
-          echo "    .logo { display: block; margin: 0 auto 20px; width: 150px; height: auto; }" >> $INDEX_FILE
-          echo "  </style>" >> $INDEX_FILE
-          echo "</head>" >> $INDEX_FILE
-          echo "<body>" >> $INDEX_FILE
-          echo "  <div class='container'>" >> $INDEX_FILE
-          echo "    <img src='https://your-logo-url.com/logo.png' alt='Logo' class='logo'/>" >> $INDEX_FILE
-          echo "    <h1>📊 Relatórios Allure</h1>" >> $INDEX_FILE
-
-          # Barra de pesquisa
-          echo "    <div class='search-bar'>" >> $INDEX_FILE
-          echo "      <input type='text' id='search' placeholder='Pesquise por data...' oninput='searchReports()'/>" >> $INDEX_FILE
-          echo "    </div>"
-
-          # Lista de relatórios
-          echo "    <ul id='report-list'>" >> $INDEX_FILE
+          echo "<head><meta charset='UTF-8'><title>Relatórios Allure</title></head>" >> $INDEX_FILE
+          echo "<body><h1>📊 Relatórios Allure</h1><ul>" >> $INDEX_FILE
           for dir in $(ls -1 $REPORT_DIR | grep -E '^[0-9]{4}-[0-9]{2}-[0-9]{2}$' | sort -r); do
-            echo "      <li class='report-item'><a href='$dir/index.html'>🗓️ $dir</a></li>" >> $INDEX_FILE
+            echo "<li><a href='$dir/index.html'>🗓️ $dir</a></li>" >> $INDEX_FILE
           done
-          echo "    </ul>" >> $INDEX_FILE
+          echo "</ul><p>Última atualização: $(date -u)</p></body></html>" >> $INDEX_FILE
 
-          # Botão de voltar (pode ser ajustado conforme necessidade)
-          echo "    <button class='back-btn' onclick='window.history.back()'>Voltar</button>" >> $INDEX_FILE
-
-          echo "    <p style='font-size: 0.9em; color: #666;'>Última atualização: $(date -u)</p>" >> $INDEX_FILE
-          echo "  </div>" >> $INDEX_FILE
-
-          # Script para pesquisa
-          echo "  <script>" >> $INDEX_FILE
-          echo "    function searchReports() {" >> $INDEX_FILE
-          echo "      const query = document.getElementById('search').value.toLowerCase();" >> $INDEX_FILE
-          echo "      const items = document.querySelectorAll('.report-item');" >> $INDEX_FILE
-          echo "      items.forEach(item => {" >> $INDEX_FILE
-          echo "        const text = item.textContent.toLowerCase();" >> $INDEX_FILE
-          echo "        item.style.display = text.includes(query) ? '' : 'none';" >> $INDEX_FILE
-          echo "      });" >> $INDEX_FILE
-          echo "    }" >> $INDEX_FILE
-          echo "  </script>" >> $INDEX_FILE
-
-          echo "</body>" >> $INDEX_FILE
-          echo "</html>" >> $INDEX_FILE
-
-      # Gerar o relatório Allure
-      - name: 📊 Gerar relatório Allure
-        run: npx allure generate ./allure-results --clean -o ./allure-report
-
-      # Deploy do conteúdo no GitHub Pages
       - name: 🚀 Deploy no GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
