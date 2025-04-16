@@ -4,25 +4,37 @@
   <meta charset='UTF-8'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
   <title>Histórico de Relatórios Allure</title>
+  <script src='https://cdn.jsdelivr.net/npm/chart.js'></script>
   <style>
     body { font-family: 'Segoe UI', sans-serif; background-color: #f4f4f9; color: #333; padding: 2rem; }
     h1 { color: #2c3e50; text-align: center; }
     input[type='text'] { width: 100%; max-width: 300px; padding: 0.5rem; margin: 1rem auto; display: block; border: 1px solid #ccc; border-radius: 5px; }
     ul { list-style: none; padding: 0; max-width: 600px; margin: auto; }
-    li { margin: 0.5rem 0; }
+    li { margin: 0.5rem 0; cursor: pointer; }
     a { text-decoration: none; color: #3498db; font-size: 1.1rem; }
     a:hover { text-decoration: underline; }
     .highlight { font-weight: bold; color: #e74c3c; }
     .footer { margin-top: 2rem; font-size: 0.9rem; text-align: center; color: #777; }
+    .chart-container { width: 80%; margin: 20px auto; }
+    .collapsible { background-color: #f1f1f1; padding: 10px; cursor: pointer; border-radius: 5px; }
+    .content { padding-left: 20px; display: none; }
   </style>
 </head>
 <body>
   <h1>📊 Histórico de Relatórios Allure</h1>
   <input type='text' id='search' placeholder='Filtrar por data ou hora... (ex: 2025-04-16_14)' />
+  <div class='chart-container'>
+    <canvas id='statusChart'></canvas>
   <ul id='report-list'>
-    <li><a href='2025-04-16_18-45-26/index.html' class='highlight'>🆕 2025-04-16_18-45-26 – ✅ 43 | ❌ 0 | ⚠️ 0 | ⏸️ 6</a></li>
+    <li class='collapsible'><a href='#' class='highlight'>🆕 2025-04-16_19-01-54 – ✅ 43 | ❌ 0 | ⚠️ 0 | ⏸️ 6</a>
+      <div class='content'>
+        <ul>
+          <li>Status: ✅ 43 | ❌ 0 | ⚠️ 0 | ⏸️ 6</li>
+        </ul>
+      </div>
+    </li>
   </ul>
-  <div class='footer'>Última atualização: Wed Apr 16 18:45:29 UTC 2025</div>
+  <div class='footer'>Última atualização: Wed Apr 16 19:02:05 UTC 2025</div>
   <script>
     const searchInput = document.getElementById('search');
     const reportList = document.getElementById('report-list');
@@ -33,6 +45,24 @@
         const text = item.textContent.toLowerCase();
         item.style.display = text.includes(value) ? '' : 'none';
       });
+    });
+    const coll = document.getElementsByClassName('collapsible');
+    Array.from(coll).forEach((item) => {
+      item.addEventListener('click', function() {
+        this.classList.toggle('active');
+        const content = this.querySelector('.content');
+        content.style.display = content.style.display === 'block' ? 'none' : 'block';
+      });
+    });
+    const ctx = document.getElementById('statusChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+      options: {
+        responsive: true,
+        plugins: {
+        },
+      }
     });
   </script>
 </body></html>
